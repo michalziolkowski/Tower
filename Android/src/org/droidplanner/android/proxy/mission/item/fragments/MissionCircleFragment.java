@@ -20,6 +20,9 @@ import java.util.List;
 public class MissionCircleFragment extends MissionDetailFragment implements
         CardWheelHorizontalView.OnCardWheelScrollListener {
 
+    private final static int ALTITUDE_WHEEL_STEP = 5;
+    private final static int CIRCLE_RADIUS_WHEEL_STEP = 10;
+
     @Override
     protected int getResource() {
         return R.layout.fragment_editor_detail_circle;
@@ -37,7 +40,7 @@ public class MissionCircleFragment extends MissionDetailFragment implements
         final LengthUnitProvider lengthUP = getLengthUnitProvider();
 
         final LengthWheelAdapter altitudeAdapter = new LengthWheelAdapter(context, R.layout.wheel_text_centered,
-                lengthUP.boxBaseValueToTarget(MIN_ALTITUDE), lengthUP.boxBaseValueToTarget(MAX_ALTITUDE));
+                lengthUP.boxBaseValueToTarget(MIN_ALTITUDE), lengthUP.boxBaseValueToTarget(MAX_ALTITUDE), ALTITUDE_WHEEL_STEP);
 
         CardWheelHorizontalView<LengthUnit> altitudePicker = (CardWheelHorizontalView<LengthUnit>) view
                 .findViewById(R.id.altitudePicker);
@@ -53,7 +56,7 @@ public class MissionCircleFragment extends MissionDetailFragment implements
         loiterTurnPicker.addScrollListener(this);
 
         final LengthWheelAdapter loiterRadiusAdapter = new LengthWheelAdapter(context, R.layout.wheel_text_centered,
-                lengthUP.boxBaseValueToTarget(Utils.MIN_DISTANCE), lengthUP.boxBaseValueToTarget(Utils.MAX_DISTANCE));
+                lengthUP.boxBaseValueToTarget(Utils.MIN_DISTANCE), lengthUP.boxBaseValueToTarget(Utils.MAX_DISTANCE), CIRCLE_RADIUS_WHEEL_STEP);
         CardWheelHorizontalView<LengthUnit> loiterRadiusPicker = (CardWheelHorizontalView<LengthUnit>) view
                 .findViewById(R.id.loiterRadiusPicker);
         loiterRadiusPicker.setViewAdapter(loiterRadiusAdapter);

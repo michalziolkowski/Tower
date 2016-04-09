@@ -14,14 +14,21 @@ import java.util.List;
  */
 public class LengthWheelAdapter extends AbstractWheelTextAdapter<LengthUnit> {
 
+    private static final int DEFAULT_STEP = 1;
+
     private final List<LengthUnit> unitsList = new ArrayList<>();
 
     public LengthWheelAdapter(Context context, int itemResource, LengthUnit startUnit, LengthUnit endUnit) {
         super(context, itemResource);
-        generateUnits(startUnit, endUnit);
+        generateUnits(startUnit, endUnit, DEFAULT_STEP);
     }
 
-    private void generateUnits(LengthUnit startUnit, LengthUnit endUnit) {
+    public LengthWheelAdapter(Context context, int itemResource, LengthUnit startUnit, LengthUnit endUnit, int step) {
+        super(context, itemResource);
+        generateUnits(startUnit, endUnit, step);
+    }
+
+    private void generateUnits(LengthUnit startUnit, LengthUnit endUnit, int step) {
         if (!startUnit.getClass().equals(endUnit.getClass())) {
             endUnit = (LengthUnit) Operation.convert(endUnit, startUnit.getIdentifier());
         }
@@ -33,7 +40,7 @@ public class LengthWheelAdapter extends AbstractWheelTextAdapter<LengthUnit> {
             throw new IllegalArgumentException("Starting value must be less or equal to the ending value");
 
         unitsList.clear();
-        for (int i = startValue; i <= endValue; i++) {
+        for (int i = startValue; i <= endValue; i+=step) {
             unitsList.add((LengthUnit) startUnit.valueOf(i));
         }
     }
